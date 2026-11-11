@@ -9,9 +9,10 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table align-middle">
     <thead>
         <tr>
+            <th>Coperta</th>
             <th>Titlu</th>
             <th>Autor</th>
             <th>Anul apariției</th>
@@ -22,6 +23,16 @@
         @foreach (Carte item in Model)
         {
             <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Coperta))
+                    {
+                        <img src="~/incarcari/@item.Coperta" alt="@item.Titlu" style="width: 60px; height: 90px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <img src="~/img/fara-coperta.svg" alt="Fără copertă" style="width: 60px; height: 90px; object-fit: cover;" />
+                    }
+                </td>
                 <td>@item.Titlu</td>
                 <td>@item.Autor</td>
                 <td>@item.AnAparitie</td>
