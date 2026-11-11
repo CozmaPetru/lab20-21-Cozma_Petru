@@ -1,11 +1,15 @@
 using System.Globalization;
+using LibrarieLab.Data;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
 // S1: aici înregistrezi contextul bazei de date
+builder.Services.AddDbContext<LibrarieContext>(options => 
+    options.UseSqlite(builder.Configuration.GetConnectionString("Librarie")));
 
 WebApplication app = builder.Build();
 
@@ -36,7 +40,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=Carti}/{action=Carduri}/{id?}")
     .WithStaticAssets();
-
+    
 app.Run();
