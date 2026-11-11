@@ -1,0 +1,26 @@
+@model Lucrare
+@{
+    ViewData["Title"] = "Detalii";
+}
+
+@if (TempData["Mesaj"] != null)
+{
+    <p class="alert alert-success" id="mesaj">@TempData["Mesaj"]</p>
+}
+
+<h1>@Model.Titlu</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <dl>
+            <dt>Autorul</dt><dd>@Model.Autor</dd>
+            <dt>Grupa</dt><dd>@Model.Grupa</dd>
+            <dt>Anul</dt><dd>@Model.An</dd>
+        </dl>
+        <a asp-action="Incarca" asp-route-id="@Model.Id" class="btn btn-primary">Încarcă o imagine</a>
+        <a asp-action="Index" class="btn btn-link">Înapoi</a>
+    </div>
+    <div class="col-md-6">
+        @* Sarcina 2: aici afișezi imaginea. *@
+    </div>
+</div>

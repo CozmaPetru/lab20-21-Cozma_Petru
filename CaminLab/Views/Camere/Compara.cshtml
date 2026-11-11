@@ -1,0 +1,16 @@
+@model List<Camera>
+@{
+    ViewData["Title"] = "Comparare";
+}
+
+<h1>Camere comparate: <span id="numar">@Model.Count</span></h1>
+<table class="table table-sm table-bordered w-auto">
+    <thead><tr><th>Camera</th><th>Etajul</th><th>Locuri</th><th>Tariful</th></tr></thead>
+    <tbody>
+        @foreach (Camera camera in Model)
+        {
+            <tr><td>@camera.Numar</td><td>@camera.Etaj</td><td>@camera.Locuri</td><td>@camera.Tarif.ToString("N2")</td></tr>
+        }
+    </tbody>
+</table>
+<partial name="_Sonda" />

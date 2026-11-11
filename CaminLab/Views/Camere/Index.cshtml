@@ -1,0 +1,31 @@
+@model List<Camera>
+@{
+    ViewData["Title"] = "Camere";
+}
+
+@if (TempData["Mesaj"] != null)
+{
+    <p class="alert alert-success" id="mesaj">@TempData["Mesaj"]</p>
+}
+
+<h1>Camerele căminului</h1>
+
+<table class="table table-sm table-striped" id="camere">
+    <thead><tr><th>Camera</th><th>Etajul</th><th>Locuri</th><th>Tariful, lei/lună</th><th>Liberă</th><th></th></tr></thead>
+    <tbody>
+        @foreach (Camera camera in Model)
+        {
+            <tr data-id="@camera.Id">
+                <td>@camera.Numar</td>
+                <td>@camera.Etaj</td>
+                <td>@camera.Locuri</td>
+                <td class="tarif">@camera.Tarif.ToString("N2")</td>
+                <td>@(camera.Libera ? "Da" : "Nu")</td>
+                <td class="d-flex gap-1">
+                    <a asp-action="Editeaza" asp-route-id="@camera.Id" class="btn btn-outline-primary btn-sm">Editează</a>
+                    <form asp-action="Sterge" asp-route-id="@camera.Id" method="post"><button type="submit" class="btn btn-outline-danger btn-sm">Șterge</button></form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

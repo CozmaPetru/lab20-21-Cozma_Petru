@@ -1,0 +1,37 @@
+@model List<Camera>
+@{
+    ViewData["Title"] = "Caută";
+}
+
+<h1>Caută o cameră</h1>
+
+<form method="get" asp-action="Cauta" class="row g-3 align-items-center mb-3">
+    <div class="col-auto"><input name="etaj" value="@ViewBag.Etaj" class="form-control" placeholder="Etajul" /></div>
+    <div class="col-auto"><input name="tarifMaxim" value="@ViewBag.TarifMaxim" class="form-control" placeholder="Tariful maxim" /></div>
+    <div class="col-auto">
+        <div class="form-check">
+            <input type="checkbox" name="doarLibere" value="true" id="dl" class="form-check-input" checked="@ViewBag.DoarLibere" />
+            <label for="dl" class="form-check-label">doar libere</label>
+        </div>
+    </div>
+    <div class="col-auto"><button type="submit" class="btn btn-primary">Caută</button></div>
+</form>
+
+<partial name="_Sonda" />
+
+<p>Camere găsite: <strong id="numar">@Model.Count</strong></p>
+<table class="table table-sm table-striped">
+    <thead><tr><th>Camera</th><th>Etajul</th><th>Locuri</th><th>Tariful</th><th>Liberă</th></tr></thead>
+    <tbody>
+        @foreach (Camera camera in Model)
+        {
+            <tr>
+                <td>@camera.Numar</td>
+                <td>@camera.Etaj</td>
+                <td>@camera.Locuri</td>
+                <td>@camera.Tarif.ToString("N2")</td>
+                <td>@(camera.Libera ? "Da" : "Nu")</td>
+            </tr>
+        }
+    </tbody>
+</table>

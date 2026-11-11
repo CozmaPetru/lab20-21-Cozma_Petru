@@ -1,0 +1,11 @@
+@{
+    ViewData["Title"] = "Blocul";
+}
+
+<h1>Blocul ales</h1>
+<p>string bloc = <strong id="valoare">@(ViewBag.Bloc == null ? "null" : ViewBag.Bloc)</strong></p>
+<form asp-action="AlegeBloc" method="post" class="d-flex gap-2 mb-3">
+    <button class="btn btn-outline-primary" type="submit" name="litera" value="A">Blocul A</button>
+    <button class="btn btn-outline-primary" type="submit" name="litera" value="B">Blocul B</button>
+</form>
+<p class="small font-monospace">Cookie în cerere: @Context.Request.Cookies["bloc"]</p>

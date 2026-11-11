@@ -1,0 +1,22 @@
+@model List<Lucrare>
+@{
+    ViewData["Title"] = "Lucrări";
+}
+
+<h1>Expoziția lucrărilor</h1>
+
+<table class="table table-sm table-striped" id="lucrari">
+    <thead><tr><th>Titlul</th><th>Autorul</th><th>Grupa</th><th>Anul</th><th></th></tr></thead>
+    <tbody>
+        @foreach (Lucrare lucrare in Model)
+        {
+            <tr>
+                <td>@lucrare.Titlu</td>
+                <td>@lucrare.Autor</td>
+                <td>@lucrare.Grupa</td>
+                <td>@lucrare.An</td>
+                <td><a asp-action="Detalii" asp-route-id="@lucrare.Id" class="btn btn-outline-primary btn-sm">Detalii</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

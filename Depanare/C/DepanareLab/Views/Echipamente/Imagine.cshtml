@@ -1,0 +1,11 @@
+@model Echipament
+@{
+    ViewData["Title"] = "Imagine";
+}
+
+<h1>Imaginea pentru @Model.Denumire</h1>
+<form asp-action="Imagine" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+    <input type="file" name="poza" class="form-control mb-2" />
+    <span class="text-danger" id="eroare">@Html.ValidationMessage("fisier")</span>
+    <button type="submit" class="btn btn-primary">Încarcă</button>
+</form>

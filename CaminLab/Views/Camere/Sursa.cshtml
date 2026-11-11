@@ -1,0 +1,10 @@
+@{
+    ViewData["Title"] = "Surse";
+}
+
+<h1>De unde vine valoarea</h1>
+<table class="table table-sm w-auto" id="surse">
+    <tr><th>din rută</th><td>@ViewBag.DinRuta</td></tr>
+    <tr><th>din query string</th><td>@ViewBag.DinAdresa</td></tr>
+</table>
+<partial name="_Sonda" />

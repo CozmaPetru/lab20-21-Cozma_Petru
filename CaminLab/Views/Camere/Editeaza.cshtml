@@ -1,0 +1,17 @@
+@model Camera
+@{
+    ViewData["Title"] = "Editează";
+}
+
+<h1>Camera @Model.Numar</h1>
+
+<form asp-action="Editeaza" method="post" class="col-md-5">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-2"><label asp-for="Numar" class="form-label"></label><input asp-for="Numar" class="form-control" /><span asp-validation-for="Numar" class="text-danger"></span></div>
+    <div class="mb-2"><label asp-for="Etaj" class="form-label"></label><input asp-for="Etaj" class="form-control" /><span asp-validation-for="Etaj" class="text-danger"></span></div>
+    <div class="mb-2"><label asp-for="Locuri" class="form-label"></label><input asp-for="Locuri" class="form-control" /><span asp-validation-for="Locuri" class="text-danger"></span></div>
+    <div class="mb-2"><label asp-for="Tarif" class="form-label"></label><input asp-for="Tarif" class="form-control" /><span asp-validation-for="Tarif" class="text-danger"></span></div>
+    <div class="form-check mb-3"><input asp-for="Libera" class="form-check-input" /><label asp-for="Libera" class="form-check-label"></label></div>
+    <button type="submit" class="btn btn-primary">Salvează</button>
+    <a asp-action="Index" class="btn btn-link">Înapoi</a>
+</form>

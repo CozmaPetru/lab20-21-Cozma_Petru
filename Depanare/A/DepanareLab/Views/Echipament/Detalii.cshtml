@@ -1,0 +1,15 @@
+@model Echipament
+@{
+    ViewData["Title"] = "Detalii";
+}
+
+<h1 id="titlu">@Model.Denumire</h1>
+<p>Seria @Model.Serie · Anul @Model.An · @Model.Pret.ToString("N2") lei</p>
+@if (!string.IsNullOrEmpty(Model.Imagine))
+{
+    <img id="imagine" src="~/incarcari/@Model.Imagine" alt="Imaginea echipamentului" class="img-fluid rounded border mb-2" style="max-width:320px" />
+}
+<p>
+    <a asp-action="Imagine" asp-route-id="@Model.Id" class="btn btn-outline-primary btn-sm">Încarcă o imagine</a>
+    <a asp-action="Index" class="btn btn-link">Înapoi</a>
+</p>

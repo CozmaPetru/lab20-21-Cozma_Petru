@@ -1,0 +1,29 @@
+@model List<Cerere>
+@{
+    ViewData["Title"] = "Cereri";
+}
+
+@if (TempData["Mesaj"] != null)
+{
+    <p class="alert alert-success" id="mesaj">@TempData["Mesaj"]</p>
+}
+
+<h1>Cererile de cazare</h1>
+
+<p>Cereri: <strong id="numar">@Model.Count</strong></p>
+<table class="table table-sm table-striped" id="cereri">
+    <thead><tr><th>Camera</th><th>Studentul</th><th>Orașul</th><th>Strada</th><th>Tutorele</th></tr></thead>
+    <tbody>
+        @foreach (Cerere cerere in Model)
+        {
+            <tr>
+                <td>@cerere.CameraId</td>
+                <td>@cerere.NumeStudent</td>
+                <td>@cerere.Oras</td>
+                <td>@cerere.Strada</td>
+                <td>@cerere.NumeTutore</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a asp-action="Noua" class="btn btn-primary">Cerere nouă</a>

@@ -1,0 +1,22 @@
+@model Lucrare
+@{
+    ViewData["Title"] = "Încarcă";
+}
+
+<h1>Imaginea pentru „@Model.Titlu”</h1>
+
+<p class="text-muted">Limita ta: <strong id="limita">@Personalizare.LimitaMb MB</strong>. Extensii permise: <strong id="extensii">.jpg, .png, @Personalizare.ExtensieSuplimentara</strong>.</p>
+
+<form asp-action="Incarca" asp-route-id="@Model.Id" method="post" class="mb-3">
+    <div class="mb-2">
+        <input type="file" name="fisier" class="form-control" />
+        <span class="text-danger" id="eroare">@Html.ValidationMessage("fisier")</span>
+    </div>
+    <button type="submit" class="btn btn-primary">Încarcă</button>
+    <a asp-action="Detalii" asp-route-id="@Model.Id" class="btn btn-link">Înapoi</a>
+</form>
+
+@if (Context.Request.Method == "POST")
+{
+    <partial name="_Sonda" />
+}

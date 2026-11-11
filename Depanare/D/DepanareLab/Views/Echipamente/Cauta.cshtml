@@ -1,0 +1,18 @@
+@model List<Echipament>
+@{
+    ViewData["Title"] = "Caută";
+}
+
+<h1>Caută un echipament</h1>
+<form method="get" asp-action="Cauta" class="row g-3 mb-3">
+    <div class="col-auto"><input name="an" class="form-control" placeholder="Anul" /></div>
+    <div class="col-auto"><input name="pretMaxim" class="form-control" placeholder="Prețul maxim" /></div>
+    <div class="col-auto"><button type="submit" class="btn btn-primary">Caută</button></div>
+</form>
+<p>Găsite: <strong id="numar">@Model.Count</strong></p>
+<ul>
+    @foreach (Echipament item in Model)
+    {
+        <li>@item.Denumire, @item.An, @item.Pret.ToString("N2") lei</li>
+    }
+</ul>

@@ -1,0 +1,18 @@
+@model List<Camera>
+@{
+    ViewData["Title"] = "Alege";
+}
+
+<h1>Alege camerele de comparat</h1>
+<form action="/Camere/Compara" method="get">
+    <table class="table table-sm table-striped w-auto">
+        <thead><tr><th></th><th>Camera</th><th>Tariful</th></tr></thead>
+        <tbody>
+            @foreach (Camera camera in Model)
+            {
+                <tr><td><input type="checkbox" name="ids" value="@camera.Id" class="form-check-input" /></td><td>@camera.Numar</td><td>@camera.Tarif.ToString("N2")</td></tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Compară</button>
+</form>

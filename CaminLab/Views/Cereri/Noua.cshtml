@@ -1,0 +1,56 @@
+@model CerereForm
+@{
+    ViewData["Title"] = "Cerere nouă";
+}
+
+<h1>Cerere de cazare</h1>
+
+<form asp-action="Noua" method="post">
+    <div class="col-sm-3 mb-3">
+        <label asp-for="CameraId" class="form-label"></label>
+        <select asp-for="CameraId" asp-items="ViewBag.Camere" class="form-select"></select>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <fieldset class="border rounded p-3 mb-3">
+                <legend class="h5">Studentul</legend>
+                <label asp-for="Student.Nume" class="form-label mt-1"></label>
+                <input asp-for="Student.Nume" class="form-control" />
+                <span asp-validation-for="Student.Nume" class="text-danger"></span>
+                <label asp-for="Student.Telefon" class="form-label mt-1"></label>
+                <input asp-for="Student.Telefon" class="form-control" />
+                <span asp-validation-for="Student.Telefon" class="text-danger"></span>
+                <label asp-for="Student.Adresa.Oras" class="form-label mt-1"></label>
+                <input asp-for="Student.Adresa.Oras" class="form-control" />
+                <span asp-validation-for="Student.Adresa.Oras" class="text-danger"></span>
+                <label asp-for="Student.Adresa.Strada" class="form-label mt-1"></label>
+                <input asp-for="Student.Adresa.Strada" class="form-control" />
+                <span asp-validation-for="Student.Adresa.Strada" class="text-danger"></span>
+            </fieldset>
+        </div>
+        <div class="col-md-6">
+            <fieldset class="border rounded p-3 mb-3">
+                <legend class="h5">Tutorele</legend>
+                <label asp-for="Tutore.Nume" class="form-label mt-1"></label>
+                <input asp-for="Tutore.Nume" class="form-control" />
+                <span asp-validation-for="Tutore.Nume" class="text-danger"></span>
+                <label asp-for="Tutore.Telefon" class="form-label mt-1"></label>
+                <input asp-for="Tutore.Telefon" class="form-control" />
+                <span asp-validation-for="Tutore.Telefon" class="text-danger"></span>
+                <label asp-for="Tutore.Adresa.Oras" class="form-label mt-1"></label>
+                <input asp-for="Tutore.Adresa.Oras" class="form-control" />
+                <span asp-validation-for="Tutore.Adresa.Oras" class="text-danger"></span>
+                <label asp-for="Tutore.Adresa.Strada" class="form-label mt-1"></label>
+                <input asp-for="Tutore.Adresa.Strada" class="form-control" />
+                <span asp-validation-for="Tutore.Adresa.Strada" class="text-danger"></span>
+            </fieldset>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Trimite cererea</button>
+    <button type="submit" asp-action="VerificaTutorele" class="btn btn-outline-secondary" id="btnTutore">Verifică doar tutorele</button>
+</form>
+
+@if (Context.Request.Method == "POST")
+{
+    <partial name="_Sonda" />
+}

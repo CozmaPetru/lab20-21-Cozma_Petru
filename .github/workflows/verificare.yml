@@ -1,0 +1,81 @@
+name: Verificare laborator
+
+# Verificarea rulează:
+# - la deschiderea sau actualizarea Pull Request-ului (tot laboratorul);
+# - la fiecare Push pe lab-21 cu un commit „Fix ...” (doar depanarea, pentru clasament).
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ lab-21 ]
+
+concurrency:
+  group: verificare-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  statuses: write
+
+jobs:
+  verificare:
+    if: github.event_name == 'pull_request' || startsWith(github.event.head_commit.message, 'Fix')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      RAMURA: ${{ github.head_ref || github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Fișierele de verificare nu au fost modificate
+        if: github.event_name == 'pull_request'
+        run: |
+          git fetch origin main
+          if git diff --name-only origin/main...HEAD | grep -q '^\.github/'; then
+            echo "Folderul .github a fost modificat. Verificarea se oprește." >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instrumentele
+        run: |
+          dotnet tool install --global dotnet-ef --version 10.0.14
+          pip install playwright==1.63.0
+          python -m playwright install --with-deps chromium
+
+      - name: Date pentru verificare
+        if: github.event_name == 'pull_request'
+        run: |
+          git diff origin/main...HEAD -- CaminLab ExpozitieLab Depanare > pr.diff
+          git log --format=%s origin/main..HEAD > commituri.txt
+
+      - name: Depanarea (la Push)
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python .github/verificare/verifica.py --lab 21 --doar-depanare --root . --repo "$GITHUB_REPOSITORY" --rezumat "$GITHUB_STEP_SUMMARY" | tee rez.txt || true
+          N=$(grep '^DEPANARE' rez.txt | cut -d' ' -f2)
+          gh api "repos/$GITHUB_REPOSITORY/statuses/$GITHUB_SHA" -f state=success -f context=depanare -f description="${N:-0}/7 defecte reparate"
+
+      - name: Laboratorul (la Pull Request)
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          case "$RAMURA" in
+            lab-20) LAB=20 ;;
+            lab-21) LAB=21 ;;
+            *) echo "Ramura $RAMURA nu este un laborator." >> "$GITHUB_STEP_SUMMARY"; exit 1 ;;
+          esac
+          python .github/verificare/verifica.py --lab $LAB --root . --repo "$GITHUB_REPOSITORY" --diff pr.diff --commituri commituri.txt --rezumat "$GITHUB_STEP_SUMMARY" | tee rez.txt

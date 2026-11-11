@@ -1,0 +1,40 @@
+@* „Sonda”: arată ce a trimis browserul și ce erori a pus legarea în ModelState. Dată gata scrisă. *@
+<div class="card border-secondary my-3" id="sonda">
+    <div class="card-header py-1 small fw-bold">Ce a trimis browserul · @Context.Request.Method @Context.Request.Path@Context.Request.QueryString</div>
+    <div class="card-body py-2 small font-monospace">
+        @foreach (KeyValuePair<string, object> pereche in ViewContext.RouteData.Values)
+        {
+            if (pereche.Key == "id")
+            {
+                <div><span class="badge text-bg-secondary">rută</span> @pereche.Key = @pereche.Value</div>
+            }
+        }
+        @foreach (KeyValuePair<string, Microsoft.Extensions.Primitives.StringValues> pereche in Context.Request.Query)
+        {
+            <div><span class="badge text-bg-info">query</span> @pereche.Key = @pereche.Value.ToString()</div>
+        }
+        @if (Context.Request.HasFormContentType)
+        {
+            foreach (KeyValuePair<string, Microsoft.Extensions.Primitives.StringValues> pereche in Context.Request.Form)
+            {
+                if (pereche.Key != "__RequestVerificationToken")
+                {
+                    <div><span class="badge text-bg-primary">formular</span> @pereche.Key = @pereche.Value.ToString()</div>
+                }
+            }
+            foreach (IFormFile fisier in Context.Request.Form.Files)
+            {
+                <div><span class="badge text-bg-success">fișier</span> @fisier.Name = @fisier.FileName (@fisier.Length octeți)</div>
+            }
+        }
+        <hr class="my-1" />
+        <div class="fw-bold">Erori în ModelState: @ViewData.ModelState.ErrorCount</div>
+        @foreach (KeyValuePair<string, Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry> intrare in ViewData.ModelState)
+        {
+            foreach (Microsoft.AspNetCore.Mvc.ModelBinding.ModelError eroare in intrare.Value.Errors)
+            {
+                <div class="text-danger">@intrare.Key: @eroare.ErrorMessage</div>
+            }
+        }
+    </div>
+</div>

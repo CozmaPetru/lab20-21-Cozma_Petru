@@ -1,0 +1,24 @@
+@model List<PretNou>
+@{
+    ViewData["Title"] = "Prețuri";
+}
+
+<h1>Prețurile echipamentelor</h1>
+<form asp-action="Preturi" method="post">
+    <table class="table table-sm w-auto">
+        <tbody>
+            @foreach (PretNou rand in Model)
+            {
+                <tr>
+                    <td>
+                        @rand.Denumire
+                        <input type="hidden" asp-for="@rand.Id" />
+                        <input type="hidden" asp-for="@rand.Denumire" />
+                    </td>
+                    <td><input asp-for="@rand.Pret" class="form-control form-control-sm pretNou" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Salvează</button>
+</form>
