@@ -3,9 +3,13 @@ using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using Microsoft.EntityFrameworkCore;
 using CaminLab.Data;
+using CaminLab.Furnizori;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.ValueProviderFactories.Add(new CaminLab.Furnizori.CookieValueProviderFactory());
+}); 
 
 // Literele românești rămân necodificate în HTML-ul trimis.
 builder.Services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(UnicodeRanges.All));
