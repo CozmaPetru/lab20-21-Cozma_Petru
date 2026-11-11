@@ -104,6 +104,36 @@ namespace CaminLab.Controllers
         }
 
         // Sarcina 4: aici scrii acțiunea care primește tabelul de tarife.
+        [HttpPost]
+        public IActionResult Tarife(List<TarifNou> tarife)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(tarife);
+            }
+
+            int modificate = 0;
+
+            foreach (TarifNou tarifNou in tarife)
+            {
+                foreach (Camera camera in db.Camere)
+                {
+                    if (camera.Id == tarifNou.Id)
+                    {
+                        if (camera.Tarif != tarifNou.Tarif)
+                        {
+                            camera.Tarif = tarifNou.Tarif;
+                            modificate++;
+                        }
+                        break;
+                    }
+                }
+            }
+
+            db.SaveChanges();
+            TempData["Mesaj"] = "Tarife modificate: " + modificate;
+            return RedirectToAction("Index");
+        }
 
         // Pentru sarcina suplimentară E1
         public IActionResult Alege()

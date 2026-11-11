@@ -10,6 +10,20 @@
         <thead><tr><th>Camera</th><th>Tariful, lei/lună</th></tr></thead>
         <tbody>
             @* Sarcina 4: aici scrii rândurile tabelului. *@
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <input type="hidden" asp-for="@Model[i].Id" />
+                        <input type="hidden" asp-for="@Model[i].Numar" />
+                        @Model[i].Numar
+                    </td>
+                    <td>
+                        <input asp-for="@Model[i].Tarif" class="form-control" />
+                        <span asp-validation-for="@Model[i].Tarif" class="text-danger"></span>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
     <button type="submit" class="btn btn-primary">Salvează tarifele</button>
