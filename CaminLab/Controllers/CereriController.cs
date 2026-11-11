@@ -60,5 +60,10 @@ namespace CaminLab.Controllers
         }
 
         // Sarcina 3: aici scrii acțiunea pentru butonul „Verifică doar tutorele”.
+        [HttpPost]
+        public IActionResult VerificaTutorele([Bind(Prefix = "Tutore")] Persoana tutore)
+        {
+            return View("Tutore", tutore);
+        }
     }
 }
