@@ -136,6 +136,28 @@ namespace CaminLab.Controllers
         }
 
         // Pentru sarcina suplimentară E1
+        // GET /Camere/Compara?ids=1&ids=3
+        public IActionResult Compara(int[] ids)
+        {
+            List<Camera> deComparat = new List<Camera>();
+
+            if (ids != null)
+            {
+                foreach (int id in ids)
+                {
+                    foreach (Camera camera in db.Camere)
+                    {
+                        if (camera.Id == id)
+                        {
+                            deComparat.Add(camera);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return View(deComparat);
+        }
         public IActionResult Alege()
         {
             List<Camera> camere = db.Camere.ToList();
