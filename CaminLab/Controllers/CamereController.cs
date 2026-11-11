@@ -158,6 +158,18 @@ namespace CaminLab.Controllers
 
             return View(deComparat);
         }
+
+        // GET /Camere/Sursa/{id}?id=...
+        [HttpGet("Camere/Sursa/{id}")]
+        public IActionResult Sursa(
+            [FromRoute(Name = "id")] int dinRuta,
+            [FromQuery(Name = "id")] int dinAdresa)
+        {
+            ViewBag.DinRuta = dinRuta;
+            ViewBag.DinAdresa = dinAdresa;
+            return View();
+        }
+
         public IActionResult Alege()
         {
             List<Camera> camere = db.Camere.ToList();
