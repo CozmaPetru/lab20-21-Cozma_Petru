@@ -1,0 +1,33 @@
+@model IEnumerable<LibrarieLab.Models.Carte>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Titlu</th>
+            <th>Autor</th>
+            <th>Anul apariției</th>
+            <th>Preț</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Carte item in Model)
+        {
+            <tr>
+                <td>@item.Titlu</td>
+                <td>@item.Autor</td>
+                <td>@item.AnAparitie</td>
+                <td>@item.Pret.ToString("0.00") lei</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
