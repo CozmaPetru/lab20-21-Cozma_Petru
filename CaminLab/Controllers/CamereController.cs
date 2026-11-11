@@ -57,6 +57,35 @@ namespace CaminLab.Controllers
         }
 
         // Sarcina 1: aici scrii acțiunea Cauta.
+        // GET /Camere/Cauta?etaj=2&tarifMaxim=600&doarLibere=true
+        public IActionResult Cauta(int? etaj, decimal? tarifMaxim, bool doarLibere)
+        {
+            List<Camera> gasite = new List<Camera>();
+            foreach (Camera camera in db.Camere)
+            {
+                bool potrivit = true;
+                if (etaj != null && camera.Etaj != etaj)
+                {
+                    potrivit = false;
+                }
+                if (tarifMaxim != null && camera.Tarif > tarifMaxim)
+                {
+                    potrivit = false;
+                }
+                if (doarLibere && !camera.Libera)
+                {
+                    potrivit = false;
+                }
+                if (potrivit)
+                {
+                    gasite.Add(camera);
+                }
+            }
+            ViewBag.Etaj = etaj;
+            ViewBag.TarifMaxim = tarifMaxim;
+            ViewBag.DoarLibere = doarLibere;
+            return View(gasite);
+        }
 
         // GET /Camere/Tarife → câte un rând editabil pentru fiecare cameră
         [HttpGet]
