@@ -53,5 +53,11 @@ namespace LibrarieLab.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public IActionResult Carduri()
+        {
+            List<Carte> carti = _db.Carti.ToList();
+            return View(carti);
+        }
     }
 }

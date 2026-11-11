@@ -1,0 +1,30 @@
+﻿@model IEnumerable<LibrarieLab.Models.Carte>
+
+@{
+    ViewData["Title"] = "Catalog";
+}
+
+<h1>Catalogul librăriei</h1>
+
+<div class="row mt-4">
+    @foreach (Carte item in Model)
+    {
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 shadow-sm">
+                @if (!string.IsNullOrEmpty(item.Coperta))
+                {
+                    <img src="~/incarcari/@item.Coperta" class="card-img-top" alt="@item.Titlu" style="height: 280px; object-fit: cover;" />
+                }
+                else
+                {
+                    <img src="~/img/fara-coperta.svg" class="card-img-top" alt="Fără copertă" style="height: 280px; object-fit: cover;" />
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@item.Titlu</h5>
+                    <p class="card-text text-muted mb-1">@item.Autor, @item.AnAparitie</p>
+                    <p class="card-text fw-bold">@item.Pret.ToString("0.00") lei</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
