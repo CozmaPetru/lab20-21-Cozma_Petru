@@ -34,6 +34,30 @@ namespace CaminLab.Controllers
         }
 
         // Sarcina 2: aici scrii acțiunea Noua pentru POST.
+        [HttpPost]
+        public IActionResult Noua(CerereForm form)
+        {
+            if (!ModelState.IsValid)
+            {
+                PregatesteCamerele();
+                return View(form);
+            }
+
+            Cerere cerere = new Cerere();
+            cerere.CameraId = form.CameraId;
+            cerere.NumeStudent = form.Student.Nume;
+            cerere.TelefonStudent = form.Student.Telefon;
+            cerere.Oras = form.Student.Adresa.Oras;
+            cerere.Strada = form.Student.Adresa.Strada;
+            cerere.NumeTutore = form.Tutore.Nume;
+            cerere.TelefonTutore = form.Tutore.Telefon;
+
+            db.Cereri.Add(cerere);
+            db.SaveChanges();
+
+            TempData["Mesaj"] = "Cererea a fost salvată.";
+            return RedirectToAction("Index");
+        }
 
         // Sarcina 3: aici scrii acțiunea pentru butonul „Verifică doar tutorele”.
     }
