@@ -34,6 +34,10 @@ namespace ExpozitieLab.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Imagine")
+                        .HasMaxLength(60)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Titlu")
                         .IsRequired()
                         .HasMaxLength(60)

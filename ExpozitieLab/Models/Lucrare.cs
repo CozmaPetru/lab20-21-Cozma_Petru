@@ -24,5 +24,7 @@ namespace ExpozitieLab.Models
         public int An { get; set; }
 
         // Sarcina 2: aici adaugi proprietatea pentru numele fișierului.
+        [StringLength(60)]
+        public string Imagine { get; set; }
     }
 }
