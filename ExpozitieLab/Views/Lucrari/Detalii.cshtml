@@ -22,5 +22,9 @@
     </div>
     <div class="col-md-6">
         @* Sarcina 2: aici afișezi imaginea. *@
+        @if (!string.IsNullOrEmpty(Model.Imagine))
+        {
+            <img id="imagine" src="~/incarcari/@Model.Imagine" alt="Imaginea lucrării" class="img-fluid rounded border" />
+        }
     </div>
 </div>

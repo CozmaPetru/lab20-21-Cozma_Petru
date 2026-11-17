@@ -30,6 +30,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 // Sarcina 2: aici adaugi un rând pentru fișierele încărcate.
+app.UseStaticFiles();
 
 app.UseRouting();
 

@@ -70,7 +70,8 @@ namespace ExpozitieLab.Controllers
             {
                 fisier.CopyTo(flux);
             }
-
+            lucrare.Imagine = numeNou;
+            db.SaveChanges();
             TempData["Mesaj"] = "Fișierul a fost salvat: " + numeNou;
             return RedirectToAction("Detalii", new { id = id });
         }
